@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Christmas Story · Countdown</title>
+<meta name="description" content="Counting down to The Christmas Story, Wednesday, December 23, 2026.">
+<meta name="theme-color" content="#efe3cc">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23c8962e' d='M32 2l5 25 25 5-25 5-5 25-5-25-25-5 25-5z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f1e6cf; --paper-2:#e9dcc0;
+    --ink:#3a2817;        /* deep sepia, main text */
+    --ink-soft:#5b4429;   /* secondary text (AA on paper) */
+    --slate:#4d6575; --slate-deep:#2f4250;
+    --ochre:#b8862f; --sienna:#9a5a2c; --gold:#e8c46a;
+    --serif:"Cormorant Garamond","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --hand:"Architects Daughter","Segoe Print","Bradley Hand","Comic Neue",cursive;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* ---------- painted background ---------- */
+  .scene{
+    position:relative; min-height:100vh; min-height:100svh;
+    display:flex; flex-direction:column; align-items:center;
+    isolation:isolate;
+  }
+  .scene::before{                       /* the watercolor painting */
+    content:""; position:absolute; inset:0; z-index:-3;
+    background:url("images/hero-wide.jpg") 0% 62%/cover no-repeat, var(--paper);
+  }
+  .scene::after{                        /* paper grain over everything */
+    content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+    opacity:.35; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42  0 0 0 0 .33  0 0 0 0 .22  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .glow{        /* soft cream wash behind the text so it always reads */
+    position:absolute; z-index:-2; left:50%; top:9%;
+    width:min(980px,120vw); height:min(560px,78vh);
+    transform:translateX(-50%);
+    background:radial-gradient(ellipse at center, rgba(244,234,214,.86) 0%, rgba(244,234,214,.62) 42%, rgba(244,234,214,0) 70%);
+    filter:blur(6px);
+  }
+  @media (max-aspect-ratio: 4/5){
+    .scene::before{ background-image:url("images/hero-tall.jpg"); background-position:center 40%; }
+    .glow{ top:13%; height:62vh; }
+  }
+
+  /* ---------- content ---------- */
+  main{
+    width:100%; max-width:1100px; padding:clamp(28px,7vh,72px) 20px 40px;
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+  }
+  .kicker{
+    font-family:var(--hand); color:var(--ink-soft);
+    letter-spacing:.22em; text-transform:uppercase;
+    font-size:clamp(.78rem,1.6vw,.95rem);
+  }
+  h1{
+    font-weight:600; line-height:.95; letter-spacing:.01em;
+    font-size:clamp(3rem,10.5vw,7.4rem);
+    margin:.18em 0 .12em;
+    color:var(--ink);
+    text-shadow:0 1px 0 rgba(255,250,238,.6), 0 0 28px rgba(244,234,214,.9);
+  }
+  h1 .the{display:block; font-style:italic; font-weight:500; font-size:.42em; letter-spacing:.06em; color:var(--sienna); margin-bottom:.05em}
+  .brush{                      /* painted underline stroke */
+    width:min(340px,70vw); height:18px; margin:2px auto 14px; display:block;
+  }
+  .date{
+    font-family:var(--serif); font-weight:500;
+    font-size:clamp(1.15rem,2.8vw,1.6rem); letter-spacing:.06em; color:var(--ink);
+  }
+
+  /* countdown */
+  .countdown{
+    display:grid; grid-template-columns:repeat(4, minmax(0,1fr));
+    gap:clamp(10px,2.4vw,26px);
+    margin-top:clamp(22px,4.5vh,40px);
+    width:min(720px,100%);
+  }
+  .unit{display:flex; flex-direction:column; align-items:center}
+  .tile{
+    position:relative; width:100%; aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .tile svg.wash{position:absolute; inset:-4%; width:108%; height:108%; z-index:0; overflow:visible}
+  .num{
+    position:relative; z-index:1;
+    font-family:var(--serif); font-weight:600; line-height:1;
+    font-size:clamp(2.1rem,7.4vw,4.4rem);
+    color:#fbf4e4; font-variant-numeric:lining-nums tabular-nums;
+    text-shadow:0 1px 2px rgba(20,30,38,.35);
+  }
+  .lbl{
+    position:relative; z-index:1; margin-top:.35em;
+    font-family:var(--hand); text-transform:uppercase; letter-spacing:.16em; font-weight:700;
+    font-size:clamp(.7rem,1.6vw,.9rem); color:var(--ink);
+    text-shadow:0 0 6px rgba(246,237,218,.95), 0 0 2px rgba(246,237,218,.95);
+  }
+
+  /* school days chip */
+  .school{
+    margin-top:clamp(20px,4vh,34px);
+    display:inline-flex; align-items:center; gap:.75em;
+    padding:.55em 1.25em .6em; border-radius:999px;
+    background:rgba(247,239,222,.82);
+    box-shadow:0 0 0 1px rgba(122,86,44,.25), 0 6px 22px rgba(80,55,25,.12);
+    backdrop-filter:blur(2px);
+  }
+  .school[hidden]{display:none}
+  .school b{font-family:var(--serif); font-weight:600; font-size:clamp(1.5rem,4vw,2rem); color:var(--sienna); line-height:1}
+  .school span{font-family:var(--hand); text-transform:uppercase; letter-spacing:.14em; font-size:clamp(.7rem,1.6vw,.85rem); color:var(--ink-soft)}
+
+  /* special states */
+  .message{display:none; margin-top:clamp(22px,4vh,36px); max-width:620px}
+  .message p.big{font-family:var(--serif); font-style:italic; font-weight:500; font-size:clamp(2rem,6vw,3.4rem); color:var(--sienna); line-height:1.1}
+  .message p.small{font-family:var(--hand); letter-spacing:.06em; font-size:clamp(1rem,2.4vw,1.2rem); color:var(--ink-soft); margin-top:.6em}
+  body[data-state="tonight"] .countdown, body[data-state="after"] .countdown,
+  body[data-state="tonight"] .school,    body[data-state="after"] .school{display:none}
+  body[data-state="tonight"] .msg-tonight, body[data-state="after"] .msg-after{display:block}
+
+  /* verse at the bottom of the page */
+  .verse{
+    margin-top:auto; width:100%; padding:28px 22px calc(26px + env(safe-area-inset-bottom));
+    text-align:center;
+  }
+  .verse p{
+    font-family:var(--hand); text-transform:uppercase; letter-spacing:.12em; line-height:1.9;
+    font-size:clamp(.72rem,1.5vw,.88rem); color:var(--ink);
+    max-width:34em; margin:0 auto;
+    background:rgba(244,234,214,.72); display:inline-block; padding:.5em 1.1em; border-radius:6px;
+  }
+  .verse cite{display:block; font-style:normal; color:var(--ink-soft); letter-spacing:.2em; margin-top:.2em}
+
+  /* gentle drifting gold flecks */
+  .flecks{position:absolute; inset:0; z-index:-1; overflow:hidden; pointer-events:none}
+  .flecks i{
+    position:absolute; top:-10px; width:6px; height:6px; border-radius:50%;
+    background:radial-gradient(circle, rgba(240,205,120,.95), rgba(240,205,120,0) 70%);
+    animation:drift linear infinite;
+  }
+  @keyframes drift{ to{ transform:translate3d(var(--dx,20px),105vh,0); opacity:.1 } }
+  @media (prefers-reduced-motion: reduce){ .flecks{display:none} }
+
+  @media (max-aspect-ratio: 4/5){
+    main{ padding-top:clamp(104px,15vh,160px); }
+    .countdown{ margin-top:clamp(18px,3vh,30px); }
+    .school{ margin-top:clamp(14px,2vh,24px); }
+  }
+
+  .fade-in{animation:fade 1.4s ease both}
+  @keyframes fade{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+</style>
+</head>
+<body data-state="countdown">
+
+<!-- reusable watercolor wash shape for the countdown tiles -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="wc" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="4" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="14" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="8" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.4 1.25" result="ga"/>
+      <feComposite in="d" in2="ga" operator="in" result="grain"/>
+      <feGaussianBlur in="grain" stdDeviation=".6"/>
+    </filter>
+    <radialGradient id="wash-slate" cx="42%" cy="38%" r="70%">
+      <stop offset="0" stop-color="#6f8796"/>
+      <stop offset=".65" stop-color="#4d6575"/>
+      <stop offset="1" stop-color="#34495a"/>
+    </radialGradient>
+    <radialGradient id="wash-sepia" cx="45%" cy="40%" r="70%">
+      <stop offset="0" stop-color="#b07a42"/>
+      <stop offset=".65" stop-color="#8d5a2e"/>
+      <stop offset="1" stop-color="#6c4322"/>
+    </radialGradient>
+    <symbol id="blob" viewBox="0 0 200 200">
+      <path d="M100 14c30 2 62 10 76 38 14 27 10 63-6 90-16 26-46 46-76 44-31-2-58-20-73-46C7 114 6 80 22 54 38 28 68 12 100 14z" filter="url(#wc)"/>
+    </symbol>
+    <symbol id="blob2" viewBox="0 0 200 200">
+      <path d="M96 12c34-2 66 16 80 44 13 26 8 58-6 84-15 28-42 50-74 48-33-2-62-22-76-50C6 112 10 78 26 52 42 28 64 14 96 12z" filter="url(#wc)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="scene">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="flecks" aria-hidden="true" id="flecks"></div>
+
+  <main class="fade-in">
+    <p class="kicker" id="kicker">Counting down to</p>
+    <h1><span class="the">The</span>Christmas Story</h1>
+    <svg class="brush" viewBox="0 0 340 18" aria-hidden="true">
+      <path d="M6 11c50-6 110-8 170-6 52 2 106 4 158 1" stroke="#b8862f" stroke-width="5" stroke-linecap="round" fill="none" opacity=".75" filter="url(#wc)"/>
+    </svg>
+    <p class="date" id="dateLine">Wednesday, December 23, 2026</p>
+
+    <div class="countdown" id="countdown" role="timer" aria-live="off" aria-label="Time remaining">
+      <div class="unit"><div class="tile"><svg class="wash" aria-hidden="true"><use href="#blob" fill="url(#wash-slate)"/></svg><span class="num" id="d">--</span></div><span class="lbl">Days</span></div>
+      <div class="unit"><div class="tile"><svg class="wash" aria-hidden="true"><use href="#blob2" fill="url(#wash-sepia)"/></svg><span class="num" id="h">--</span></div><span class="lbl">Hours</span></div>
+      <div class="unit"><div class="tile"><svg class="wash" aria-hidden="true"><use href="#blob" fill="url(#wash-slate)"/></svg><span class="num" id="m">--</span></div><span class="lbl">Minutes</span></div>
+      <div class="unit"><div class="tile"><svg class="wash" aria-hidden="true"><use href="#blob2" fill="url(#wash-sepia)"/></svg><span class="num" id="s">--</span></div><span class="lbl">Seconds</span></div>
+    </div>
+
+    <p class="school" id="schoolChip"><b id="schoolDays">--</b><span id="schoolLabel">school days to go</span></p>
+
+    <div class="message msg-tonight" role="status">
+      <p class="big">Tonight&rsquo;s the night!</p>
+      <p class="small">The Christmas Story is here. Joy to the world!</p>
+    </div>
+    <div class="message msg-after" role="status">
+      <p class="big">Merry Christmas!</p>
+      <p class="small">Thank you for celebrating The Christmas Story with us.</p>
+    </div>
+  </main>
+
+  <footer class="verse">
+    <p>&ldquo;For unto you is born this day in the city of David a Saviour, which is Christ the Lord.&rdquo;<cite>Luke 2:11</cite></p>
+  </footer>
+</div>
+
+<script>
+/* =====================================================================
+   SETTINGS — edit these in one place
+   ===================================================================== */
+const CONFIG = {
+  // Performance start, Pacific time (America/Los_Angeles; December = PST, UTC-8).
+  // Time not set yet, so this counts to the START of Dec 23. When the time is
+  // known, change only the "T00:00:00" part, e.g. "2026-12-23T18:30:00".
+  performanceLocal: "2026-12-23T00:00:00",
+  utcOffset: "-08:00",
+
+  // "Tonight!" message runs until this moment (Pacific); after it, Merry Christmas.
+  endsLocal: "2026-12-24T00:00:00",
+
+  // ---- School-day counter ----
+  // School meets Monday–Thursday (0=Sun ... 6=Sat).
+  schoolWeekdays: [1, 2, 3, 4],
+  // Counts school days strictly AFTER today, through this last date (inclusive).
+  // Dec 23 (performance day) is not counted.
+  lastSchoolDayCounted: "2026-12-22",
+  // Days with no school (YYYY-MM-DD). Add any other days off here.
+  noSchoolDates: [
+    "2026-11-23", "2026-11-24", "2026-11-25", "2026-11-26", "2026-11-27" // Thanksgiving week
+  ]
+};
+/* ===================================================================== */
+
+const TARGET = Date.parse(CONFIG.performanceLocal + CONFIG.utcOffset);
+const ENDS   = Date.parse(CONFIG.endsLocal + CONFIG.utcOffset);
+const pad = n => String(n).padStart(2, "0");
+
+// Testing helpers: ?now=2026-12-23T10:00:00-08:00  or  ?preview=tonight|after
+const qs = new URLSearchParams(location.search);
+const preview = qs.get("preview");
+const nowOffset = qs.get("now") ? Date.parse(qs.get("now")) - Date.now() : 0;
+const now = () => Date.now() + nowOffset;
+
+// Today's calendar date in Pacific time, whatever zone the viewer is in.
+function pacificDate(ms){
+  const p = new Intl.DateTimeFormat("en-CA",{timeZone:"America/Los_Angeles",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date(ms));
+  const g = t => p.find(x => x.type === t).value;
+  return `${g("year")}-${g("month")}-${g("day")}`;
+}
+function schoolDaysLeft(ms){
+  const off = new Set(CONFIG.noSchoolDates);
+  const [y,mo,da] = pacificDate(ms).split("-").map(Number);
+  const d = new Date(Date.UTC(y, mo-1, da));
+  const last = Date.parse(CONFIG.lastSchoolDayCounted + "T00:00:00Z");
+  let count = 0;
+  for (d.setUTCDate(d.getUTCDate()+1); d.getTime() <= last; d.setUTCDate(d.getUTCDate()+1)){
+    const iso = d.toISOString().slice(0,10);
+    if (CONFIG.schoolWeekdays.includes(d.getUTCDay()) && !off.has(iso)) count++;
+  }
+  return count;
+}
+
+const el = id => document.getElementById(id);
+let lastState = "";
+function tick(){
+  const t = now();
+  let state = t < TARGET ? "countdown" : (t < ENDS ? "tonight" : "after");
+  if (preview === "tonight" || preview === "after") state = preview;
+  if (state !== lastState){
+    document.body.dataset.state = state; lastState = state;
+    el("kicker").textContent = state === "countdown" ? "Counting down to" : (state === "tonight" ? "Tonight" : "With thanks");
+  }
+
+  if (state === "countdown"){
+    let diff = Math.max(0, TARGET - t);
+    const d = Math.floor(diff / 864e5); diff -= d*864e5;
+    const h = Math.floor(diff / 36e5);  diff -= h*36e5;
+    const m = Math.floor(diff / 6e4);   diff -= m*6e4;
+    const s = Math.floor(diff / 1e3);
+    el("d").textContent = d; el("h").textContent = pad(h);
+    el("m").textContent = pad(m); el("s").textContent = pad(s);
+    el("countdown").setAttribute("aria-label", `${d} days, ${h} hours, ${m} minutes until The Christmas Story`);
+    const sd = schoolDaysLeft(t);
+    el("schoolDays").textContent = sd;
+    el("schoolLabel").textContent = sd === 1 ? "school day to go" : "school days to go";
+    el("schoolChip").hidden = sd === 0;
+  }
+}
+tick();
+setInterval(tick, 1000);
+
+// drifting gold flecks
+(function(){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const box = el("flecks");
+  for (let i = 0; i < 22; i++){
+    const f = document.createElement("i");
+    const size = 3 + Math.random()*6;
+    f.style.cssText = `left:${Math.random()*100}%;width:${size}px;height:${size}px;` +
+      `animation-duration:${14+Math.random()*16}s;animation-delay:${-Math.random()*30}s;` +
+      `--dx:${(Math.random()*80-40).toFixed(0)}px;opacity:${(.35+Math.random()*.5).toFixed(2)}`;
+    box.appendChild(f);
+  }
+})();
+</script>
+</body>
+</html>
